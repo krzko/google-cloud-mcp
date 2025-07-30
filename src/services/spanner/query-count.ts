@@ -56,7 +56,7 @@ interface TimeSeriesData {
  */
 export function registerSpannerQueryCountTool(server: McpServer): void {
   server.tool(
-    "spanner-query-count",
+    "gcp-spanner-query-count",
     {
       instanceId: z
         .string()

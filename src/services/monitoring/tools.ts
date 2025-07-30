@@ -26,7 +26,7 @@ export async function registerMonitoringTools(
   }
   // Tool to query metrics with a custom filter and time range
   server.tool(
-    "query-metrics",
+    "gcp-monitoring-query-metrics",
     {
       filter: z.string().describe("The filter to apply to metrics"),
       startTime: z
@@ -138,7 +138,7 @@ export async function registerMonitoringTools(
 
   // Tool to list available metric types
   server.tool(
-    "list-metric-types",
+    "gcp-monitoring-list-metric-types",
     {
       filter: z
         .string()
@@ -314,7 +314,7 @@ export async function registerMonitoringTools(
 
   // Tool to query metrics using natural language
   server.tool(
-    "natural-language-metrics-query",
+    "gcp-monitoring-query-natural-language",
     {
       query: z
         .string()

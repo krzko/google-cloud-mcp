@@ -22,7 +22,7 @@ import { stateManager } from "../../utils/state-manager.js";
 export async function registerTraceTools(server: McpServer): Promise<void> {
   // Tool to get a trace by ID
   server.tool(
-    "get-trace",
+    "gcp-trace-get-trace",
     {
       traceId: z.string().describe("The trace ID to retrieve"),
       projectId: z
@@ -268,7 +268,7 @@ export async function registerTraceTools(server: McpServer): Promise<void> {
 
   // Tool to list recent traces
   server.tool(
-    "list-traces",
+    "gcp-trace-list-traces",
     {
       projectId: z
         .string()
@@ -500,7 +500,7 @@ export async function registerTraceTools(server: McpServer): Promise<void> {
 
   // Tool to find traces associated with logs
   server.tool(
-    "find-traces-from-logs",
+    "gcp-trace-find-from-logs",
     {
       projectId: z
         .string()
@@ -755,7 +755,7 @@ export async function registerTraceTools(server: McpServer): Promise<void> {
 
   // Tool to analyze a trace using natural language
   server.tool(
-    "natural-language-trace-query",
+    "gcp-trace-query-natural-language",
     {
       query: z
         .string()

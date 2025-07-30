@@ -21,7 +21,7 @@ describe('Security Validation', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'get-project-iam-policy'
+        call => call[0] === 'gcp-iam-get-project-policy'
       );
       
       const toolHandler = toolCall[2];
@@ -51,7 +51,7 @@ describe('Security Validation', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'test-project-permissions'
+        call => call[0] === 'gcp-iam-test-project-permissions'
       );
       
       const toolHandler = toolCall[2];
@@ -73,7 +73,7 @@ describe('Security Validation', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'test-resource-permissions'
+        call => call[0] === 'gcp-iam-test-resource-permissions'
       );
       
       const toolHandler = toolCall[2];
@@ -147,7 +147,7 @@ describe('Security Validation', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'get-project-iam-policy'
+        call => call[0] === 'gcp-iam-get-project-policy'
       );
       
       const toolHandler = toolCall[2];
@@ -199,7 +199,7 @@ describe('Security Validation', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'analyse-permission-gaps'
+        call => call[0] === 'gcp-iam-analyse-permission-gaps'
       );
       
       const toolHandler = toolCall[2];
@@ -224,7 +224,7 @@ describe('Security Validation', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'test-project-permissions'
+        call => call[0] === 'gcp-iam-test-project-permissions'
       );
       
       const toolHandler = toolCall[2];
@@ -250,7 +250,7 @@ describe('Security Validation', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'test-project-permissions'
+        call => call[0] === 'gcp-iam-test-project-permissions'
       );
       
       const toolHandler = toolCall[2];

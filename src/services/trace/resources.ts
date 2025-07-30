@@ -19,7 +19,7 @@ import { logger } from "../../utils/logger.js";
 export function registerTraceResources(server: McpServer): void {
   // Resource to get a specific trace by ID
   server.resource(
-    "trace-by-id",
+    "gcp-trace-get-by-id",
     new ResourceTemplate("gcp-trace://{projectId}/traces/{traceId}", {
       list: undefined,
     }),
@@ -114,7 +114,7 @@ export function registerTraceResources(server: McpServer): void {
 
   // Resource to get logs associated with a trace
   server.resource(
-    "trace-logs",
+    "gcp-trace-related-logs",
     new ResourceTemplate("gcp-trace://{projectId}/traces/{traceId}/logs", {
       list: undefined,
     }),
@@ -261,7 +261,7 @@ Filter used: ${traceFilter}`,
 
   // Resource to list recent failed traces
   server.resource(
-    "recent-failed-traces",
+    "gcp-trace-recent-failed",
     new ResourceTemplate("gcp-trace://{projectId}/recent-failed", {
       list: undefined,
     }),

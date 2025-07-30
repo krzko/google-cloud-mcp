@@ -22,7 +22,7 @@ import { logger } from "../../utils/logger.js";
 export function registerIamTools(server: McpServer): void {
   // Tool to get project-level IAM policy
   server.registerTool(
-    "get-project-iam-policy",
+    "gcp-iam-get-project-policy",
     {
       title: "Get Project IAM Policy",
       description: "Retrieve the IAM policy for a Google Cloud project",
@@ -92,7 +92,7 @@ export function registerIamTools(server: McpServer): void {
 
   // Tool to test IAM permissions on a project
   server.registerTool(
-    "test-project-permissions",
+    "gcp-iam-test-project-permissions",
     {
       title: "Test Project IAM Permissions",
       description:
@@ -174,7 +174,7 @@ export function registerIamTools(server: McpServer): void {
 
   // Tool to test permissions on specific resources
   server.registerTool(
-    "test-resource-permissions",
+    "gcp-iam-test-resource-permissions",
     {
       title: "Test Resource-Specific IAM Permissions",
       description:
@@ -254,7 +254,7 @@ export function registerIamTools(server: McpServer): void {
 
   // Tool to validate deployment permissions for common GCP services
   server.registerTool(
-    "validate-deployment-permissions",
+    "gcp-iam-validate-deployment-permissions",
     {
       title: "Validate Deployment Permissions",
       description:
@@ -407,7 +407,7 @@ export function registerIamTools(server: McpServer): void {
 
   // Tool to list all available deployment permission sets
   server.registerTool(
-    "list-deployment-services",
+    "gcp-iam-list-deployment-services",
     {
       title: "List Available Deployment Services",
       description:
@@ -467,7 +467,7 @@ export function registerIamTools(server: McpServer): void {
 
   // Tool to analyse permission gaps for a specific resource and operation
   server.registerTool(
-    "analyse-permission-gaps",
+    "gcp-iam-analyse-permission-gaps",
     {
       title: "Analyse Permission Gaps",
       description:

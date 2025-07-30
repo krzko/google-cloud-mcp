@@ -141,19 +141,19 @@ describe('Error Reporting Tools', () => {
       registerErrorReportingTools(mockServer as any);
       
       expect(mockServer.tool).toHaveBeenCalledWith(
-        'list-error-groups',
+        'gcp-error-reporting-list-groups',
         expect.any(Object),
         expect.any(Function)
       );
       
       expect(mockServer.tool).toHaveBeenCalledWith(
-        'get-error-group-details',
+        'gcp-error-reporting-get-group-details',
         expect.any(Object),
         expect.any(Function)
       );
       
       expect(mockServer.tool).toHaveBeenCalledWith(
-        'analyse-error-trends',
+        'gcp-error-reporting-analyse-trends',
         expect.any(Object),
         expect.any(Function)
       );
@@ -171,7 +171,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'list-error-groups'
+          call => call[0] === 'gcp-error-reporting-list-groups'
         );
         
         expect(toolCall).toBeDefined();
@@ -220,7 +220,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'list-error-groups'
+          call => call[0] === 'gcp-error-reporting-list-groups'
         );
         
         const toolHandler = toolCall![2];
@@ -244,7 +244,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'list-error-groups'
+          call => call[0] === 'gcp-error-reporting-list-groups'
         );
         
         const toolHandler = toolCall![2];
@@ -263,7 +263,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'list-error-groups'
+          call => call[0] === 'gcp-error-reporting-list-groups'
         );
         
         const toolHandler = toolCall![2];
@@ -310,7 +310,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'get-error-group-details'
+          call => call[0] === 'gcp-error-reporting-get-group-details'
         );
         
         const toolHandler = toolCall![2];
@@ -363,7 +363,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'get-error-group-details'
+          call => call[0] === 'gcp-error-reporting-get-group-details'
         );
         
         const toolHandler = toolCall![2];
@@ -387,7 +387,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'get-error-group-details'
+          call => call[0] === 'gcp-error-reporting-get-group-details'
         );
         
         const toolHandler = toolCall![2];
@@ -408,7 +408,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'analyse-error-trends'
+          call => call[0] === 'gcp-error-reporting-analyse-trends'
         );
         
         const toolHandler = toolCall![2];
@@ -438,7 +438,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'analyse-error-trends'
+          call => call[0] === 'gcp-error-reporting-analyse-trends'
         );
         
         const toolHandler = toolCall![2];
@@ -465,7 +465,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'analyse-error-trends'
+          call => call[0] === 'gcp-error-reporting-analyse-trends'
         );
         
         const toolHandler = toolCall![2];
@@ -498,7 +498,7 @@ describe('Error Reporting Tools', () => {
         registerErrorReportingTools(mockServer as any);
         
         const toolCall = mockServer.tool.mock.calls.find(
-          call => call[0] === 'analyse-error-trends'
+          call => call[0] === 'gcp-error-reporting-analyse-trends'
         );
         
         const toolHandler = toolCall![2];
@@ -519,7 +519,7 @@ describe('Error Reporting Tools', () => {
       registerErrorReportingTools(mockServer as any);
       
       const toolCall = mockServer.tool.mock.calls.find(
-        call => call[0] === 'list-error-groups'
+        call => call[0] === 'gcp-error-reporting-list-groups'
       );
       
       const toolHandler = toolCall![2];

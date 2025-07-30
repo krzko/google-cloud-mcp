@@ -27,25 +27,25 @@ describe('IAM Tools', () => {
       registerIamTools(mockServer as any);
       
       expect(mockServer.registerTool).toHaveBeenCalledWith(
-        'get-project-iam-policy',
+        'gcp-iam-get-project-policy',
         expect.any(Object),
         expect.any(Function)
       );
       
       expect(mockServer.registerTool).toHaveBeenCalledWith(
-        'test-project-permissions',
+        'gcp-iam-test-project-permissions',
         expect.any(Object),
         expect.any(Function)
       );
       
       expect(mockServer.registerTool).toHaveBeenCalledWith(
-        'test-resource-permissions',
+        'gcp-iam-test-resource-permissions',
         expect.any(Object),
         expect.any(Function)
       );
       
       expect(mockServer.registerTool).toHaveBeenCalledWith(
-        'validate-deployment-permissions',
+        'gcp-iam-validate-deployment-permissions',
         expect.any(Object),
         expect.any(Function)
       );
@@ -58,7 +58,7 @@ describe('IAM Tools', () => {
       
       // Get the registered tool handler
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'get-project-iam-policy'
+        call => call[0] === 'gcp-iam-get-project-policy'
       );
       
       expect(toolCall).toBeDefined();
@@ -77,7 +77,7 @@ describe('IAM Tools', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'test-project-permissions'
+        call => call[0] === 'gcp-iam-test-project-permissions'
       );
       
       expect(toolCall).toBeDefined();
@@ -103,7 +103,7 @@ describe('IAM Tools', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'validate-deployment-permissions'
+        call => call[0] === 'gcp-iam-validate-deployment-permissions'
       );
       
       expect(toolCall).toBeDefined();
@@ -125,7 +125,7 @@ describe('IAM Tools', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'validate-deployment-permissions'
+        call => call[0] === 'gcp-iam-validate-deployment-permissions'
       );
       
       const toolHandler = toolCall![2];
@@ -143,7 +143,7 @@ describe('IAM Tools', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'analyse-permission-gaps'
+        call => call[0] === 'gcp-iam-analyse-permission-gaps'
       );
       
       expect(toolCall).toBeDefined();
@@ -168,7 +168,7 @@ describe('IAM Tools', () => {
       registerIamTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'get-project-iam-policy'
+        call => call[0] === 'gcp-iam-get-project-policy'
       );
       
       const toolHandler = toolCall![2];

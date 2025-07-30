@@ -20,7 +20,7 @@ import {
 export function registerErrorReportingResources(server: McpServer): void {
   // Register a resource for recent error analysis
   server.resource(
-    "recent-errors",
+    "gcp-error-reporting-recent-errors",
     new ResourceTemplate("gcp-error-reporting://{projectId}/recent", {
       list: undefined,
     }),
@@ -110,7 +110,7 @@ export function registerErrorReportingResources(server: McpServer): void {
 
   // Register a resource for error analysis with custom time range
   server.resource(
-    "error-analysis",
+    "gcp-error-reporting-error-analysis",
     new ResourceTemplate(
       "gcp-error-reporting://{projectId}/analysis/{timeRange}",
       { list: undefined },
@@ -228,7 +228,7 @@ export function registerErrorReportingResources(server: McpServer): void {
 
   // Register a resource for service-specific error analysis
   server.resource(
-    "service-errors",
+    "gcp-error-reporting-service-errors",
     new ResourceTemplate(
       "gcp-error-reporting://{projectId}/service/{serviceName}",
       { list: undefined },

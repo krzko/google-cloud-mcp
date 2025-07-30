@@ -27,13 +27,13 @@ describe('Monitoring Tools', () => {
       await registerMonitoringTools(mockServer as any);
       
       expect(mockServer.tool).toHaveBeenCalledWith(
-        'query-metrics',
+        'gcp-monitoring-query-metrics',
         expect.any(Object),
         expect.any(Function)
       );
       
       expect(mockServer.tool).toHaveBeenCalledWith(
-        'list-metric-types',
+        'gcp-monitoring-list-metric-types',
         expect.any(Object),
         expect.any(Function)
       );
@@ -52,7 +52,7 @@ describe('Monitoring Tools', () => {
       await registerMonitoringTools(mockServer as any);
       
       const toolCall = mockServer.tool.mock.calls.find(
-        call => call[0] === 'list-metric-types'
+        call => call[0] === 'gcp-monitoring-list-metric-types'
       );
       
       expect(toolCall).toBeDefined();
@@ -82,7 +82,7 @@ describe('Monitoring Tools', () => {
       await registerMonitoringTools(mockServer as any);
       
       const toolCall = mockServer.tool.mock.calls.find(
-        call => call[0] === 'query-metrics'
+        call => call[0] === 'gcp-monitoring-query-metrics'
       );
       
       expect(toolCall).toBeDefined();
@@ -106,7 +106,7 @@ describe('Monitoring Tools', () => {
       await registerMonitoringTools(mockServer as any);
       
       const toolCall = mockServer.tool.mock.calls.find(
-        call => call[0] === 'list-metric-types'
+        call => call[0] === 'gcp-monitoring-list-metric-types'
       );
       
       const toolHandler = toolCall![2];

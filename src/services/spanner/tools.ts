@@ -54,7 +54,7 @@ async function getDetailedSchemaForQueryGeneration(
 export function registerSpannerTools(server: McpServer): void {
   // Tool to execute SQL queries
   server.tool(
-    "execute-spanner-query",
+    "gcp-spanner-execute-query",
     {
       sql: z.string().describe("The SQL query to execute"),
       instanceId: z
@@ -150,7 +150,7 @@ export function registerSpannerTools(server: McpServer): void {
 
   // Tool to list tables
   server.tool(
-    "list-spanner-tables",
+    "gcp-spanner-list-tables",
     {
       instanceId: z
         .string()
@@ -243,7 +243,7 @@ export function registerSpannerTools(server: McpServer): void {
 
   // Tool to list instances
   server.tool(
-    "list-spanner-instances",
+    "gcp-spanner-list-instances",
     // Define an empty schema with a dummy parameter that's optional
     // This ensures compatibility with clients that expect an object parameter
     {
@@ -342,7 +342,7 @@ export function registerSpannerTools(server: McpServer): void {
 
   // Tool to list databases
   server.tool(
-    "list-spanner-databases",
+    "gcp-spanner-list-databases",
     {
       instanceId: z.string().describe("Spanner instance ID"),
     },
@@ -432,7 +432,7 @@ export function registerSpannerTools(server: McpServer): void {
 
   // Tool to execute natural language queries against Spanner
   server.tool(
-    "natural-language-spanner-query",
+    "gcp-spanner-query-natural-language",
     {
       query: z
         .string()

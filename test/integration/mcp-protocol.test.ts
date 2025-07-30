@@ -66,7 +66,7 @@ describe('MCP Protocol Compliance', () => {
       registerIamTools(mockMcpServer as any);
       
       const toolCall = mockMcpServer.registerTool.mock.calls.find(
-        call => call[0] === 'get-project-iam-policy'
+        call => call[0] === 'gcp-iam-get-project-policy'
       );
       
       expect(toolCall).toBeDefined();
@@ -109,7 +109,7 @@ describe('MCP Protocol Compliance', () => {
       registerIamTools(mockMcpServer as any);
       
       const toolCall = mockMcpServer.registerTool.mock.calls.find(
-        call => call[0] === 'test-project-permissions'
+        call => call[0] === 'gcp-iam-test-project-permissions'
       );
       
       const toolHandler = toolCall[2];
@@ -132,7 +132,7 @@ describe('MCP Protocol Compliance', () => {
       registerIamTools(mockMcpServer as any);
       
       const toolCall = mockMcpServer.registerTool.mock.calls.find(
-        call => call[0] === 'test-project-permissions'
+        call => call[0] === 'gcp-iam-test-project-permissions'
       );
       
       const toolHandler = toolCall[2];
@@ -152,7 +152,7 @@ describe('MCP Protocol Compliance', () => {
       registerIamTools(mockMcpServer as any);
       
       const toolCall = mockMcpServer.registerTool.mock.calls.find(
-        call => call[0] === 'test-resource-permissions'
+        call => call[0] === 'gcp-iam-test-resource-permissions'
       );
       
       const toolHandler = toolCall[2];
@@ -173,7 +173,7 @@ describe('MCP Protocol Compliance', () => {
       registerIamTools(mockMcpServer as any);
       
       const toolCall = mockMcpServer.registerTool.mock.calls.find(
-        call => call[0] === 'get-project-iam-policy'
+        call => call[0] === 'gcp-iam-get-project-policy'
       );
       
       const toolHandler = toolCall[2];

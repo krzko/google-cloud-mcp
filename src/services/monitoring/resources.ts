@@ -17,7 +17,7 @@ import { formatTimeSeriesData, getMonitoringClient } from "./types.js";
 export function registerMonitoringResources(server: McpServer): void {
   // Register a resource for recent metrics
   server.resource(
-    "recent-metrics",
+    "gcp-monitoring-recent-metrics",
     new ResourceTemplate("gcp-monitoring://{projectId}/recent", {
       list: undefined,
     }),
@@ -83,7 +83,7 @@ export function registerMonitoringResources(server: McpServer): void {
 
   // Register a resource for metrics with a custom filter
   server.resource(
-    "filtered-metrics",
+    "gcp-monitoring-filtered-metrics",
     new ResourceTemplate("gcp-monitoring://{projectId}/filter/{filter}", {
       list: undefined,
     }),

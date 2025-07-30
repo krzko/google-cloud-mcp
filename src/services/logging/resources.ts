@@ -17,7 +17,7 @@ import { formatLogEntry, getLoggingClient, LogEntry } from "./types.js";
 export function registerLoggingResources(server: McpServer): void {
   // Register a resource for listing recent logs
   server.resource(
-    "recent-logs",
+    "gcp-logging-recent-logs",
     new ResourceTemplate("gcp-logs://{projectId}/recent", { list: undefined }),
     async (uri, { projectId }) => {
       try {
@@ -93,7 +93,7 @@ export function registerLoggingResources(server: McpServer): void {
 
   // Register a resource for querying logs with a filter
   server.resource(
-    "filtered-logs",
+    "gcp-logging-filtered-logs",
     new ResourceTemplate("gcp-logs://{projectId}/filter/{filter}", {
       list: undefined,
     }),

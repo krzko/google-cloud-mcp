@@ -15,7 +15,7 @@ import { parseRelativeTime } from "../../utils/time.js";
 export function registerLoggingTools(server: McpServer): void {
   // Tool to query logs with a custom filter
   server.registerTool(
-    "query-logs",
+    "gcp-logging-query-logs",
     {
       title: "Query Logs",
       description:
@@ -99,7 +99,7 @@ Please check your filter syntax and try again. For filter syntax help, see: http
 
   // Tool to get logs for a specific time range
   server.registerTool(
-    "logs-time-range",
+    "gcp-logging-query-time-range",
     {
       title: "Query Logs by Time Range",
       description:
@@ -199,7 +199,7 @@ Please check your time range format and try again. Valid formats include:
 
   // Advanced tool for searching across all payload types and fields
   server.registerTool(
-    "search-logs-comprehensive",
+    "gcp-logging-search-comprehensive",
     {
       title: "Comprehensive Log Search",
       description:

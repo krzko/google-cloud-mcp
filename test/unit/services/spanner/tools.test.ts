@@ -49,13 +49,13 @@ describe('Spanner Tools', () => {
       registerSpannerTools(mockServer as any);
       
       expect(mockServer.tool).toHaveBeenCalledWith(
-        'execute-spanner-query',
+        'gcp-spanner-execute-query',
         expect.any(Object),
         expect.any(Function)
       );
       
       expect(mockServer.tool).toHaveBeenCalledWith(
-        'list-spanner-databases',
+        'gcp-spanner-list-databases',
         expect.any(Object),
         expect.any(Function)
       );
@@ -67,7 +67,7 @@ describe('Spanner Tools', () => {
       registerSpannerTools(mockServer as any);
       
       const toolCall = mockServer.tool.mock.calls.find(
-        call => call[0] === 'execute-spanner-query'
+        call => call[0] === 'gcp-spanner-execute-query'
       );
       
       expect(toolCall).toBeDefined();
@@ -89,7 +89,7 @@ describe('Spanner Tools', () => {
       registerSpannerTools(mockServer as any);
       
       const toolCall = mockServer.tool.mock.calls.find(
-        call => call[0] === 'list-spanner-databases'
+        call => call[0] === 'gcp-spanner-list-databases'
       );
       
       expect(toolCall).toBeDefined();
@@ -122,7 +122,7 @@ describe('Spanner Tools', () => {
       registerSpannerTools(mockServer as any);
       
       const toolCall = mockServer.tool.mock.calls.find(
-        call => call[0] === 'execute-spanner-query'
+        call => call[0] === 'gcp-spanner-execute-query'
       );
       
       const toolHandler = toolCall![2];

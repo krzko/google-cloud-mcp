@@ -27,13 +27,13 @@ describe('Logging Tools', () => {
       registerLoggingTools(mockServer as any);
       
       expect(mockServer.registerTool).toHaveBeenCalledWith(
-        'query-logs',
+        'gcp-logging-query-logs',
         expect.any(Object),
         expect.any(Function)
       );
       
       expect(mockServer.registerTool).toHaveBeenCalledWith(
-        'search-logs-comprehensive',
+        'gcp-logging-search-comprehensive',
         expect.any(Object),
         expect.any(Function)
       );
@@ -45,7 +45,7 @@ describe('Logging Tools', () => {
       registerLoggingTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'query-logs'
+        call => call[0] === 'gcp-logging-query-logs'
       );
       
       expect(toolCall).toBeDefined();
@@ -67,7 +67,7 @@ describe('Logging Tools', () => {
       registerLoggingTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'search-logs-comprehensive'
+        call => call[0] === 'gcp-logging-search-comprehensive'
       );
       
       expect(toolCall).toBeDefined();
@@ -92,7 +92,7 @@ describe('Logging Tools', () => {
       registerLoggingTools(mockServer as any);
       
       const toolCall = mockServer.registerTool.mock.calls.find(
-        call => call[0] === 'query-logs'
+        call => call[0] === 'gcp-logging-query-logs'
       );
       
       const toolHandler = toolCall![2];

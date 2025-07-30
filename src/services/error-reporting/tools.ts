@@ -19,7 +19,7 @@ import {
 export function registerErrorReportingTools(server: McpServer): void {
   // Tool to list error groups with filtering and time range support
   server.tool(
-    "list-error-groups",
+    "gcp-error-reporting-list-groups",
     {
       title: "List Error Groups",
       description:
@@ -178,7 +178,7 @@ export function registerErrorReportingTools(server: McpServer): void {
 
   // Tool to get detailed information about a specific error group
   server.tool(
-    "get-error-group-details",
+    "gcp-error-reporting-get-group-details",
     {
       title: "Get Error Group Details",
       description:
@@ -407,7 +407,7 @@ export function registerErrorReportingTools(server: McpServer): void {
 
   // Tool to analyse error trends over time
   server.tool(
-    "analyse-error-trends",
+    "gcp-error-reporting-analyse-trends",
     {
       title: "Analyse Error Trends",
       description:

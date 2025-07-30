@@ -22,7 +22,7 @@ import { logger } from "../../utils/logger.js";
 export function registerIamResources(server: McpServer): void {
   // Register a resource for project IAM policy
   server.resource(
-    "project-iam-policy",
+    "gcp-iam-project-policy",
     new ResourceTemplate("gcp-iam://{projectId}/policy", { list: undefined }),
     async (uri, { projectId }) => {
       try {
@@ -75,7 +75,7 @@ export function registerIamResources(server: McpServer): void {
 
   // Register a resource for IAM policy analysis summary
   server.resource(
-    "iam-policy-summary",
+    "gcp-iam-policy-summary",
     new ResourceTemplate("gcp-iam://{projectId}/summary", { list: undefined }),
     async (uri, { projectId }) => {
       try {

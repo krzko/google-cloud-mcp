@@ -19,7 +19,7 @@ import { logger } from "../../utils/logger.js";
 export function registerSpannerResources(server: McpServer): void {
   // Register a resource for database schema
   server.resource(
-    "spanner-schema",
+    "gcp-spanner-database-schema",
     new ResourceTemplate(
       "gcp-spanner://{projectId}/{instanceId}/{databaseId}/schema",
       { list: undefined },
@@ -81,7 +81,7 @@ export function registerSpannerResources(server: McpServer): void {
 
   // Register a resource for table data preview
   server.resource(
-    "table-preview",
+    "gcp-spanner-table-preview",
     new ResourceTemplate(
       "gcp-spanner://{projectId}/{instanceId}/{databaseId}/tables/{tableName}/preview",
       { list: undefined },
@@ -189,7 +189,7 @@ export function registerSpannerResources(server: McpServer): void {
 
   // Register a resource for listing available tables
   server.resource(
-    "spanner-tables",
+    "gcp-spanner-database-tables",
     new ResourceTemplate(
       "gcp-spanner://{projectId}/{instanceId}/{databaseId}/tables",
       { list: undefined },
@@ -296,7 +296,7 @@ export function registerSpannerResources(server: McpServer): void {
 
   // Register a resource for listing available instances
   server.resource(
-    "spanner-instances",
+    "gcp-spanner-list-instances",
     new ResourceTemplate("gcp-spanner://{projectId}/instances", {
       list: undefined,
     }),
@@ -383,7 +383,7 @@ export function registerSpannerResources(server: McpServer): void {
 
   // Register a resource for listing available databases
   server.resource(
-    "spanner-databases",
+    "gcp-spanner-list-databases",
     new ResourceTemplate("gcp-spanner://{projectId}/{instanceId}/databases", {
       list: undefined,
     }),
