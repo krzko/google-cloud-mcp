@@ -41,7 +41,7 @@
     "dotenv": "^16.4.7",
     "google-auth-library": "^10.2.0",
     "winston": "^3.17.0",
-    "zod": "^3.23.8"
+    "zod": "^4.0.13"
   },
   "devDependencies": {
     "@types/node": "^22.13.9",
