@@ -94,6 +94,37 @@ The server will also use the `GOOGLE_CLOUD_PROJECT` environment variable if set,
 
 ## Installation
 
+### Option 1: Using Docker (Recommended)
+
+The easiest way to run this MCP server is using Docker. Ensure you have your
+application default credentials set up with the Google Cloud SDK before doing
+this.
+```bash
+# Set your project ID
+gcloud auth application-default login
+```
+
+**Configure your MCP client to use the Docker container:**
+
+```json
+{
+  "mcpServers": {
+    "google-cloud-mcp": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "-e", "GOOGLE_CLOUD_PROJECT=your-project-id",
+        "-v", "/Users/foo/.config/gcloud/application_default_credentials.json:/app/credentials/key.json:ro",
+        "-e", "GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/key.json",
+        "ghcr.io/krzko/google-cloud-mcp:latest"
+      ]
+    }
+  }
+}
+```
+
+### Option 2: Local Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/krzko/google-cloud-mcp.git
@@ -128,6 +159,80 @@ Configure the `mcpServers` in your client:
       }
   }
 }
+```
+
+## Docker Usage
+
+### Quick Start
+
+```bash
+# Run with minimal configuration
+docker run --rm -e GOOGLE_CLOUD_PROJECT=your-project ghcr.io/krzko/google-cloud-mcp:latest
+
+# Run with debug logging
+docker run --rm \
+  -e GOOGLE_CLOUD_PROJECT=your-project \
+  -e DEBUG=true \
+  ghcr.io/krzko/google-cloud-mcp:latest
+```
+
+### Authentication Methods
+
+**Method 1: Service Account Key File (Recommended)**
+```bash
+docker run --rm \
+  -e GOOGLE_CLOUD_PROJECT=your-project \
+  -v /path/to/service-account-key.json:/app/credentials/key.json:ro \
+  -e GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/key.json \
+  ghcr.io/krzko/google-cloud-mcp:latest
+```
+
+**Method 2: Environment Variables**
+```bash
+docker run --rm \
+  -e GOOGLE_CLOUD_PROJECT=your-project \
+  -e GOOGLE_CLIENT_EMAIL=your-service-account@project.iam.gserviceaccount.com \
+  -e GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..." \
+  ghcr.io/krzko/google-cloud-mcp:latest
+```
+
+**Method 3: Application Default Credentials**
+```bash
+docker run --rm \
+  -e GOOGLE_CLOUD_PROJECT=your-project \
+  -v ~/.config/gcloud/application_default_credentials.json:/app/credentials/key.json:ro \
+  -e GOOGLE_APPLICATION_CREDENTIALS=/app/credentials/key.json \
+  ghcr.io/krzko/google-cloud-mcp:latest
+```
+
+### Docker Compose
+
+Use the included `docker-compose.yml` for easier local development:
+
+```yaml
+# Set environment variables
+export GOOGLE_CLOUD_PROJECT=your-project-id
+export DEBUG=false
+
+# Run the production service
+docker-compose up google-cloud-mcp
+
+# Run the development service with live reload
+docker-compose --profile dev up google-cloud-mcp-dev
+```
+
+### Building Locally
+
+```bash
+# Build the Docker image
+docker build -t google-cloud-mcp .
+
+# Run your locally built image
+docker run --rm -e GOOGLE_CLOUD_PROJECT=your-project google-cloud-mcp
+
+# Build for development with live reload
+docker build --target development -t google-cloud-mcp:dev .
+docker run --rm -v $(pwd):/app -e GOOGLE_CLOUD_PROJECT=your-project google-cloud-mcp:dev
 ```
 
 ## Development
