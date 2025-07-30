@@ -29,15 +29,15 @@ export function registerErrorReportingTools(server: McpServer): void {
           .string()
           .optional()
           .default("1h")
-          .describe(
-            'Time range to query: "1h", "6h", "24h"/"1d", "7d", "30d"',
-          ),
-        serviceFilter: z
-          .string()
-          .optional()
-          .describe("Filter by service name"),
+          .describe('Time range to query: "1h", "6h", "24h"/"1d", "7d", "30d"'),
+        serviceFilter: z.string().optional().describe("Filter by service name"),
         order: z
-          .enum(["COUNT_DESC", "LAST_SEEN_DESC", "CREATED_DESC", "AFFECTED_USERS_DESC"])
+          .enum([
+            "COUNT_DESC",
+            "LAST_SEEN_DESC",
+            "CREATED_DESC",
+            "AFFECTED_USERS_DESC",
+          ])
           .optional()
           .default("COUNT_DESC")
           .describe("Sort order for error groups"),
@@ -52,7 +52,7 @@ export function registerErrorReportingTools(server: McpServer): void {
     async ({ timeRange, serviceFilter, order, pageSize }) => {
       try {
         const projectId = await getProjectId();
-        
+
         // Initialize Google Auth client (same pattern as trace service)
         const auth = await initGoogleAuth(true);
         if (!auth) {
@@ -109,7 +109,7 @@ export function registerErrorReportingTools(server: McpServer): void {
 
         // Make REST API call using same fetch approach as trace service
         const apiUrl = `https://clouderrorreporting.googleapis.com/v1beta1/projects/${projectId}/groupStats?${params}`;
-        
+
         const response = await fetch(apiUrl, {
           method: "GET",
           headers: {
@@ -145,7 +145,8 @@ export function registerErrorReportingTools(server: McpServer): void {
         const errorSummaries: ErrorGroupStats[] = errorGroupStats;
 
         // Generate analysis and recommendations
-        const analysis = analyseErrorPatternsAndSuggestRemediation(errorSummaries);
+        const analysis =
+          analyseErrorPatternsAndSuggestRemediation(errorSummaries);
 
         let content = `# Error Groups Analysis\n\nProject: ${projectId}\nTime Range: ${actualTimeRange}\n${serviceFilter ? `Service Filter: ${serviceFilter}\n` : ""}\n\n${analysis}\n\n`;
 
@@ -183,16 +184,12 @@ export function registerErrorReportingTools(server: McpServer): void {
       description:
         "Get detailed information about a specific error group including recent events",
       inputSchema: {
-        groupId: z
-          .string()
-          .describe("Error group ID to get details for"),
+        groupId: z.string().describe("Error group ID to get details for"),
         timeRange: z
           .string()
           .optional()
           .default("24h")
-          .describe(
-            'Time range to query events (e.g., "1h", "24h", "7d")',
-          ),
+          .describe('Time range to query events (e.g., "1h", "24h", "7d")'),
         pageSize: z
           .number()
           .min(1)
@@ -249,7 +246,7 @@ export function registerErrorReportingTools(server: McpServer): void {
         // The group name format should be: projects/{projectId}/groups/{groupId}
         const groupName = `projects/${projectId}/groups/${groupId}`;
         const groupApiUrl = `https://clouderrorreporting.googleapis.com/v1beta1/${groupName}`;
-        
+
         // Get group details
         const groupResponse = await fetch(groupApiUrl, {
           method: "GET",
@@ -302,7 +299,7 @@ export function registerErrorReportingTools(server: McpServer): void {
 
         // Start building content with group details
         let content = `# Error Group Details\n\n`;
-        
+
         // Add group information
         content += `**Group ID:** ${groupId}\n`;
         content += `**Project:** ${projectId}\n`;
@@ -420,13 +417,8 @@ export function registerErrorReportingTools(server: McpServer): void {
           .string()
           .optional()
           .default("24h")
-          .describe(
-            'Time range to analyse (e.g., "1h", "24h", "7d")',
-          ),
-        serviceFilter: z
-          .string()
-          .optional()
-          .describe("Filter by service name"),
+          .describe('Time range to analyse (e.g., "1h", "24h", "7d")'),
+        serviceFilter: z.string().optional().describe("Filter by service name"),
         resolution: z
           .enum(["1m", "5m", "1h", "1d"])
           .optional()
@@ -559,7 +551,10 @@ export function registerErrorReportingTools(server: McpServer): void {
             stat.timedCounts.forEach((timedCount: any) => {
               const timeKey = timedCount.startTime;
               const currentCount = timeSlots.get(timeKey) || 0;
-              timeSlots.set(timeKey, currentCount + parseInt(timedCount.count || "0"));
+              timeSlots.set(
+                timeKey,
+                currentCount + parseInt(timedCount.count || "0"),
+              );
             });
           }
         });
@@ -571,7 +566,7 @@ export function registerErrorReportingTools(server: McpServer): void {
 
         // Sort time slots chronologically
         const sortedTimeSlots = Array.from(timeSlots.entries()).sort(
-          ([a], [b]) => new Date(a).getTime() - new Date(b).getTime()
+          ([a], [b]) => new Date(a).getTime() - new Date(b).getTime(),
         );
 
         // Initialize variables for recommendations
@@ -592,14 +587,16 @@ export function registerErrorReportingTools(server: McpServer): void {
 
           // Identify spikes (errors significantly above average)
           averageErrors = totalErrors / sortedTimeSlots.length;
-          spikes = sortedTimeSlots.filter(([, count]) => count > averageErrors * 2);
+          spikes = sortedTimeSlots.filter(
+            ([, count]) => count > averageErrors * 2,
+          );
 
           if (spikes.length > 0) {
             content += `## Error Spikes Detected\n\n`;
             content += `*Time periods with error counts > 2x average (${Math.round(averageErrors)})*\n\n`;
             spikes.forEach(([time, count]) => {
               const timeStr = new Date(time).toLocaleString();
-              const multiplier = Math.round(count / averageErrors * 10) / 10;
+              const multiplier = Math.round((count / averageErrors) * 10) / 10;
               content += `- **${timeStr}:** ${count.toLocaleString()} errors (${multiplier}x average)\n`;
             });
             content += `\n`;
@@ -608,22 +605,30 @@ export function registerErrorReportingTools(server: McpServer): void {
 
         // Top error groups contributing to trends
         content += `## Top Contributing Error Groups\n\n`;
-        const topErrors = errorGroupStats
-          .slice(0, 5)
-          .map((stat: any) => ({
-            service: stat.representative?.serviceContext?.service || "Unknown",
-            message: stat.representative?.message || "No message",
-            count: parseInt(stat.count || "0"),
-            groupId: stat.group?.groupId || "unknown",
-          }));
+        const topErrors = errorGroupStats.slice(0, 5).map((stat: any) => ({
+          service: stat.representative?.serviceContext?.service || "Unknown",
+          message: stat.representative?.message || "No message",
+          count: parseInt(stat.count || "0"),
+          groupId: stat.group?.groupId || "unknown",
+        }));
 
-        topErrors.forEach((error: { service: string; message: string; count: number; groupId: string }, index: number) => {
-          const percentage = Math.round((error.count / totalErrors) * 100);
-          content += `${index + 1}. **${error.service}** (${percentage}% of total)\n`;
-          content += `   - ${error.message}\n`;
-          content += `   - ${error.count.toLocaleString()} occurrences\n`;
-          content += `   - Group ID: ${error.groupId}\n\n`;
-        });
+        topErrors.forEach(
+          (
+            error: {
+              service: string;
+              message: string;
+              count: number;
+              groupId: string;
+            },
+            index: number,
+          ) => {
+            const percentage = Math.round((error.count / totalErrors) * 100);
+            content += `${index + 1}. **${error.service}** (${percentage}% of total)\n`;
+            content += `   - ${error.message}\n`;
+            content += `   - ${error.count.toLocaleString()} occurrences\n`;
+            content += `   - Group ID: ${error.groupId}\n\n`;
+          },
+        );
 
         // Recommendations based on trends
         content += `## Recommendations\n\n`;

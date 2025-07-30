@@ -21,11 +21,13 @@ export function registerErrorReportingResources(server: McpServer): void {
   // Register a resource for recent error analysis
   server.resource(
     "recent-errors",
-    new ResourceTemplate("gcp-error-reporting://{projectId}/recent", { list: undefined }),
+    new ResourceTemplate("gcp-error-reporting://{projectId}/recent", {
+      list: undefined,
+    }),
     async (uri, { projectId }) => {
       try {
         const actualProjectId = projectId || (await getProjectId());
-        
+
         // Initialize Google Auth client (same pattern as trace service)
         const auth = await initGoogleAuth(true);
         if (!auth) {
@@ -82,7 +84,8 @@ export function registerErrorReportingResources(server: McpServer): void {
         // errorGroupStats should already match our ErrorGroupStats interface
         const errorSummaries: ErrorGroupStats[] = errorGroupStats;
 
-        const analysis = analyseErrorPatternsAndSuggestRemediation(errorSummaries);
+        const analysis =
+          analyseErrorPatternsAndSuggestRemediation(errorSummaries);
 
         return {
           contents: [
@@ -108,11 +111,16 @@ export function registerErrorReportingResources(server: McpServer): void {
   // Register a resource for error analysis with custom time range
   server.resource(
     "error-analysis",
-    new ResourceTemplate("gcp-error-reporting://{projectId}/analysis/{timeRange}", { list: undefined }),
+    new ResourceTemplate(
+      "gcp-error-reporting://{projectId}/analysis/{timeRange}",
+      { list: undefined },
+    ),
     async (uri, { projectId, timeRange }) => {
       try {
         const actualProjectId = projectId || (await getProjectId());
-        const actualTimeRange = Array.isArray(timeRange) ? timeRange[0] : (timeRange || "1h");
+        const actualTimeRange = Array.isArray(timeRange)
+          ? timeRange[0]
+          : timeRange || "1h";
         // Initialize Google Auth client (same pattern as trace service)
         const auth = await initGoogleAuth(true);
         if (!auth) {
@@ -194,7 +202,8 @@ export function registerErrorReportingResources(server: McpServer): void {
         // errorGroupStats should already match our ErrorGroupStats interface
         const errorSummaries: ErrorGroupStats[] = errorGroupStats;
 
-        const analysis = analyseErrorPatternsAndSuggestRemediation(errorSummaries);
+        const analysis =
+          analyseErrorPatternsAndSuggestRemediation(errorSummaries);
 
         return {
           contents: [
@@ -220,7 +229,10 @@ export function registerErrorReportingResources(server: McpServer): void {
   // Register a resource for service-specific error analysis
   server.resource(
     "service-errors",
-    new ResourceTemplate("gcp-error-reporting://{projectId}/service/{serviceName}", { list: undefined }),
+    new ResourceTemplate(
+      "gcp-error-reporting://{projectId}/service/{serviceName}",
+      { list: undefined },
+    ),
     async (uri, { projectId, serviceName }) => {
       try {
         const actualProjectId = projectId || (await getProjectId());
@@ -237,7 +249,9 @@ export function registerErrorReportingResources(server: McpServer): void {
         const token = await client.getAccessToken();
 
         // Build query parameters (analyse errors for the last 24 hours for this service)
-        const actualServiceName = Array.isArray(serviceName) ? serviceName[0] : serviceName;
+        const actualServiceName = Array.isArray(serviceName)
+          ? serviceName[0]
+          : serviceName;
         const params = new URLSearchParams({
           "timeRange.period": "PERIOD_1_DAY",
           "serviceFilter.service": actualServiceName,
@@ -282,7 +296,8 @@ export function registerErrorReportingResources(server: McpServer): void {
         // errorGroupStats should already match our ErrorGroupStats interface
         const errorSummaries: ErrorGroupStats[] = errorGroupStats;
 
-        const analysis = analyseErrorPatternsAndSuggestRemediation(errorSummaries);
+        const analysis =
+          analyseErrorPatternsAndSuggestRemediation(errorSummaries);
 
         return {
           contents: [
