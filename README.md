@@ -8,21 +8,25 @@ A Model Context Protocol server that connects to Google Cloud services to provid
 
 ## Services
 
-Supported services:
+Supported Google Cloud services:
 
-- [x] Google Cloud IAM
-- [x] Google Cloud Logging
-- [x] Google Cloud Monitoring
-- [x] Google Cloud Spanner
+- [x] [Error Reporting](https://cloud.google.com/error-reporting)
+- [x] [Identity and Access Management (IAM)](https://cloud.google.com/iam)
+- [x] [Logging](https://cloud.google.com/logging)
+- [x] [Monitoring](https://cloud.google.com/monitoring)
+- [x] [Spanner](https://cloud.google.com/spanner)
 
-Servers in development:
+### Error Reporting
 
-- [ ] Google Cloud Trace
-- [ ] Google Cloud Compute
-- [ ] Google Cloud Run
-- [ ] Google Cloud Storage
+Monitor and analyse application errors with automated investigation and remediation suggestions:
 
-### Google Cloud IAM
+- List and analyse error groups with customisable time ranges (default 1h)
+- Get detailed error group information with recent events and stack traces
+- Analyse error trends over time to identify patterns and spikes
+- Generate comprehensive remediation suggestions based on error patterns
+- Investigate errors by service, time range, or severity
+
+### IAM
 
 Query and analyse IAM policies and permissions:
 
@@ -32,7 +36,7 @@ Query and analyse IAM policies and permissions:
 - Analyse permission gaps for specific operations
 - Generate IAM policy analysis with security insights
 
-### Google Cloud Logging
+### Logging
 
 Query and filter log entries from Google Cloud Logging:
 
@@ -40,7 +44,7 @@ Query and filter log entries from Google Cloud Logging:
 - Search logs within specific time ranges
 - Format and display log entries in a readable format
 
-### Google Cloud Spanner
+### Spanner
 
 Interact with Google Cloud Spanner databases:
 
@@ -48,7 +52,7 @@ Interact with Google Cloud Spanner databases:
 - List available databases and tables
 - Explore database schema
 
-### Google Cloud Monitoring
+### Monitoring
 
 Retrieve and analyse metrics from Google Cloud Monitoring:
 
@@ -56,7 +60,7 @@ Retrieve and analyse metrics from Google Cloud Monitoring:
 - Visualise metric data over time
 - List available metric types
 
-### Google Cloud Trace
+### Trace
 
 Analyse distributed traces from Google Cloud Trace:
 

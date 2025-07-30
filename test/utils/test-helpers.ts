@@ -136,3 +136,100 @@ export function createMockSpannerSchema() {
     },
   ];
 }
+
+/**
+ * Create mock Error Reporting error group stats
+ */
+export function createMockErrorGroupStats(count: number = 3) {
+  return Array.from({ length: count }, (_, i) => ({
+    group: {
+      name: `projects/test-project/groups/error-group-${i}`,
+      groupId: `error-group-${i}`,
+      resolutionStatus: i % 2 === 0 ? 'OPEN' : 'ACKNOWLEDGED',
+      trackingIssues: i === 0 ? [{ url: `https://github.com/test/issues/${i + 100}` }] : undefined
+    },
+    count: `${(i + 1) * 10}`,
+    affectedUsersCount: `${i + 1}`,
+    timedCounts: [
+      {
+        count: `${(i + 1) * 5}`,
+        startTime: '2024-01-01T10:00:00Z',
+        endTime: '2024-01-01T11:00:00Z'
+      }
+    ],
+    firstSeenTime: '2024-01-01T09:00:00Z',
+    lastSeenTime: new Date().toISOString(),
+    affectedServices: [
+      {
+        service: `test-service-${i}`,
+        version: '1.0.0'
+      }
+    ],
+    representative: {
+      eventTime: new Date().toISOString(),
+      serviceContext: {
+        service: `test-service-${i}`,
+        version: '1.0.0'
+      },
+      message: `Test error message ${i}`,
+      context: {
+        httpRequest: {
+          method: 'GET',
+          url: `https://example.com/api/endpoint${i}`,
+          responseStatusCode: i % 2 === 0 ? 500 : 404,
+          userAgent: 'Test-Agent/1.0'
+        },
+        reportLocation: {
+          filePath: `src/service${i}.ts`,
+          lineNumber: (i + 1) * 10,
+          functionName: `testFunction${i}`
+        },
+        user: `test-user${i}@example.com`
+      }
+    }
+  }));
+}
+
+/**
+ * Create mock Error Reporting error events
+ */
+export function createMockErrorEvents(count: number = 5) {
+  return Array.from({ length: count }, (_, i) => ({
+    eventTime: new Date(Date.now() - i * 60000).toISOString(), // Spread over time
+    serviceContext: {
+      service: 'test-service',
+      version: '1.0.0'
+    },
+    message: `Error event ${i}: ${i % 2 === 0 ? 'Database timeout' : 'Invalid request'}`,
+    context: {
+      httpRequest: {
+        method: i % 2 === 0 ? 'POST' : 'GET',
+        url: `https://example.com/api/data/${i}`,
+        responseStatusCode: i % 2 === 0 ? 500 : 400,
+        userAgent: 'Test-Agent/1.0',
+        remoteIp: `192.168.1.${100 + i}`
+      },
+      user: `user${i}@example.com`,
+      reportLocation: {
+        filePath: 'src/handler.ts',
+        lineNumber: 50 + i,
+        functionName: 'processRequest'
+      }
+    }
+  }));
+}
+
+/**
+ * Create mock Error Reporting error group
+ */
+export function createMockErrorGroup() {
+  return {
+    name: 'projects/test-project/groups/test-group-1',
+    groupId: 'test-group-1',
+    resolutionStatus: 'OPEN',
+    trackingIssues: [
+      { url: 'https://github.com/test/issues/123' },
+      { url: 'https://jira.company.com/browse/BUG-456' }
+    ]
+  };
+}

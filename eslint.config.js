@@ -23,6 +23,7 @@ export default [
         clearTimeout: 'readonly',
         URL: 'readonly',
         URLSearchParams: 'readonly',
+        fetch: 'readonly',
       },
     },
     plugins: {

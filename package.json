@@ -23,9 +23,11 @@
     "mcp",
     "model-context-protocol",
     "google-cloud",
-    "spanner",
+    "error-reporting",
+    "iam",
     "logging",
     "monitoring",
+    "spanner",
     "trace"
   ],
   "author": "Kristof Kowalski <k@ko.wal.ski>",
@@ -40,6 +42,7 @@
     "@modelcontextprotocol/sdk": "^1.17.0",
     "dotenv": "^16.4.7",
     "google-auth-library": "^10.2.0",
+    "googleapis": "^154.1.0",
     "winston": "^3.17.0",
     "zod": "^3.23.8"
   },
