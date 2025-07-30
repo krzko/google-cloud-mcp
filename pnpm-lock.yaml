@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@google-cloud/billing':
+        specifier: ^5.1.0
+        version: 5.1.0
       '@google-cloud/iam':
         specifier: ^2.3.0
         version: 2.3.0
@@ -337,6 +340,10 @@ packages:
   '@eslint/plugin-kit@0.3.4':
     resolution: {integrity: sha512-Ul5l+lHEcw3L5+k8POx6r74mxEYKG5kOb6Xpy2gCRW6zweT6TEhAf8vhxGgjhqrd/VO/Dirhsb+1hNpD1ue9hw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@google-cloud/billing@5.1.0':
+    resolution: {integrity: sha512-Z2Nr8v5120txmS6ItHWKWWCXRrHIUC7e2u0bmCGfdc0gPcizOOacS9fXGwpztg0S2rq2rnsPo0SZRHkSZ+mMFg==}
+    engines: {node: '>=18'}
 
   '@google-cloud/common@5.0.2':
     resolution: {integrity: sha512-V7bmBKYQyu0eVG2BFejuUjlBt+zrya6vtsKdY+JxMM/dNntPF41vZ9+LhOshEUH01zOHEqBSvI7Dad7ZS6aUeA==}
@@ -2704,6 +2711,12 @@ snapshots:
     dependencies:
       '@eslint/core': 0.15.1
       levn: 0.4.1
+
+  '@google-cloud/billing@5.1.0':
+    dependencies:
+      google-gax: 5.0.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@google-cloud/common@5.0.2':
     dependencies:

@@ -233,3 +233,139 @@ export function createMockErrorGroup() {
     ]
   };
 }
+
+/**
+ * Create mock billing account
+ */
+export function createMockBillingAccount() {
+  return {
+    name: 'billingAccounts/123456-789ABC-DEF012',
+    displayName: 'Test Billing Account',
+    open: true,
+    masterBillingAccount: null,
+    parent: null,
+  };
+}
+
+/**
+ * Create mock cost data
+ */
+export function createMockCostData(count: number = 2) {
+  return Array.from({ length: count }, (_, i) => ({
+    billingAccountName: 'billingAccounts/123456-789ABC-DEF012',
+    projectId: `test-project-${i + 1}`,
+    serviceId: i % 2 === 0 ? 'compute.googleapis.com' : 'storage.googleapis.com',
+    cost: { amount: 100 + i * 50, currency: 'USD' },
+    usage: { amount: 50 + i * 25, unit: i % 2 === 0 ? 'hours' : 'GB' },
+    period: {
+      startTime: '2024-01-01T00:00:00Z',
+      endTime: '2024-01-02T00:00:00Z'
+    },
+    labels: { environment: i % 2 === 0 ? 'production' : 'development' }
+  }));
+}
+
+/**
+ * Create mock cloud service
+ */
+export function createMockCloudService() {
+  return {
+    name: 'services/compute',
+    serviceId: 'compute.googleapis.com',
+    displayName: 'Compute Engine API',
+    businessEntityName: 'Google LLC',
+  };
+}
+
+/**
+ * Create mock SKU
+ */
+export function createMockSKU() {
+  return {
+    name: 'services/compute/skus/test-sku',
+    skuId: 'test-sku-id',
+    description: 'Test Compute Engine SKU',
+    category: {
+      serviceDisplayName: 'Compute Engine',
+      resourceFamily: 'Compute',
+      resourceGroup: 'Standard',
+      usageType: 'OnDemand',
+    },
+    serviceRegions: ['us-central1', 'europe-west1'],
+    pricingInfo: [
+      {
+        summary: 'Per hour pricing',
+        pricingExpression: {
+          usageUnit: 'hour',
+          usageUnitDescription: 'hour',
+          baseUnit: 'hour',
+          baseUnitDescription: 'hour',
+          baseUnitConversionFactor: 1,
+          displayQuantity: 1,
+          tieredRates: [
+            {
+              startUsageAmount: 0,
+              unitPrice: {
+                currencyCode: 'USD',
+                units: '0',
+                nanos: 100000000, // $0.10
+              },
+            },
+          ],
+        },
+        currencyConversionRate: 1,
+        effectiveTime: '2024-01-01T00:00:00Z',
+      },
+    ],
+    serviceProviderName: 'Google',
+    geoTaxonomy: {
+      type: 'REGIONAL',
+      regions: ['us-central1'],
+    },
+  };
+}
+
+/**
+ * Create mock cost anomaly
+ */
+export function createMockCostAnomaly() {
+  return {
+    anomalyType: 'spike',
+    severity: 'high',
+    projectId: 'test-project',
+    serviceId: 'compute.googleapis.com',
+    description: 'Compute Engine costs increased by 150% compared to historical average',
+    currentCost: 2500,
+    expectedCost: 1000,
+    percentageChange: 150,
+    detectedAt: new Date().toISOString(),
+    recommendations: [
+      'Review recent instance scaling activities',
+      'Check for unexpected traffic spikes',
+      'Consider implementing auto-scaling policies'
+    ],
+  };
+}
+
+/**
+ * Create mock cost recommendation
+ */
+export function createMockCostRecommendation() {
+  return {
+    type: 'rightsizing',
+    projectId: 'test-project',
+    serviceId: 'compute.googleapis.com',
+    resourceName: 'web-server-instances',
+    description: 'Compute Engine instances show low utilisation and can be right-sized',
+    potentialSavings: { amount: 450, currency: 'USD', percentage: 30 },
+    effort: 'medium',
+    priority: 'high',
+    actionRequired: 'Resize instances from n1-standard-4 to n1-standard-2',
+    implementationSteps: [
+      'Analyse traffic patterns during peak hours',
+      'Test performance with smaller instance types',
+      'Schedule maintenance window for changes',
+      'Monitor performance after implementation'
+    ],
+  };
+}

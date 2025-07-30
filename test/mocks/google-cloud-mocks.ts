@@ -2,7 +2,7 @@
  * Mock implementations for Google Cloud services
  */
 import { vi } from 'vitest';
-import { createMockLogEntries, createMockIamPolicy, createMockSpannerSchema } from '../utils/test-helpers.js';
+import { createMockLogEntries, createMockIamPolicy, createMockSpannerSchema, createMockBillingAccount, createMockCostData } from '../utils/test-helpers.js';
 
 // Mock @google-cloud/logging
 export const mockLoggingClient = {
@@ -70,6 +70,7 @@ vi.mock('google-auth-library', () => ({
 // Mock @modelcontextprotocol/sdk
 export const mockMcpServer = {
   registerTool: vi.fn(),
+  tool: vi.fn(),
   resource: vi.fn(),
   prompt: vi.fn(),
   registerPrompt: vi.fn(),
@@ -85,4 +86,48 @@ vi.mock('@modelcontextprotocol/sdk/server/mcp.js', () => ({
 
 vi.mock('@modelcontextprotocol/sdk/server/stdio.js', () => ({
   StdioServerTransport: vi.fn(),
+}));
+
+// Mock @google-cloud/billing
+export const mockBillingClient = {
+  listBillingAccounts: vi.fn().mockResolvedValue([[createMockBillingAccount()], null]),
+  getBillingAccount: vi.fn().mockResolvedValue([createMockBillingAccount()]),
+  listProjectBillingInfo: vi.fn().mockResolvedValue([[], null]),
+  getProjectBillingInfo: vi.fn().mockResolvedValue([{
+    name: 'projects/test-project',
+    billingEnabled: true,
+    billingAccountName: 'billingAccounts/123456-789ABC-DEF012'
+  }]),
+};
+
+export const mockCatalogClient = {
+  listServices: vi.fn().mockResolvedValue([[
+    {
+      name: 'services/compute',
+      serviceId: 'compute.googleapis.com',
+      displayName: 'Compute Engine API',
+      businessEntityName: 'Google LLC'
+    }
+  ], null]),
+  listSkus: vi.fn().mockResolvedValue([[
+    {
+      name: 'services/compute/skus/test-sku',
+      skuId: 'test-sku-id',
+      description: 'Test SKU',
+      category: {
+        serviceDisplayName: 'Compute Engine',
+        resourceFamily: 'Compute',
+        resourceGroup: 'Standard',
+        usageType: 'OnDemand'
+      },
+      serviceRegions: ['us-central1'],
+      pricingInfo: [],
+      serviceProviderName: 'Google'
+    }
+  ], null]),
+};
+
+vi.mock('@google-cloud/billing', () => ({
+  CloudBillingClient: vi.fn(() => mockBillingClient),
+  CloudCatalogClient: vi.fn(() => mockCatalogClient),
 }));

@@ -41,7 +41,7 @@ describe('MCP Protocol Compliance', () => {
   });
 
   describe('Tool Registration Compliance', () => {
-    it('should register tools with proper schema', async () => {
+    it('should register IAM tools with proper schema', async () => {
       const { registerIamTools } = await import('../../src/services/iam/tools.js');
       
       registerIamTools(mockMcpServer as any);
@@ -53,6 +53,29 @@ describe('MCP Protocol Compliance', () => {
         const [name, schema, handler] = call;
         
         expect(typeof name).toBe('string');
+        expect(schema).toHaveProperty('title');
+        expect(schema).toHaveProperty('description');
+        expect(schema).toHaveProperty('inputSchema');
+        expect(typeof handler).toBe('function');
+      });
+    });
+
+    it('should register billing tools with proper schema', async () => {
+      vi.clearAllMocks();
+      const { registerBillingTools } = await import('../../src/services/billing/tools.js');
+      
+      registerBillingTools(mockMcpServer as any);
+      
+      // Verify billing tools are registered with required fields
+      const toolCalls = mockMcpServer.registerTool.mock.calls;
+      
+      expect(toolCalls.length).toBeGreaterThan(0);
+      
+      toolCalls.forEach(call => {
+        const [name, schema, handler] = call;
+        
+        expect(typeof name).toBe('string');
+        expect(name).toMatch(/^gcp-billing-/);
         expect(schema).toHaveProperty('title');
         expect(schema).toHaveProperty('description');
         expect(schema).toHaveProperty('inputSchema');
@@ -82,7 +105,7 @@ describe('MCP Protocol Compliance', () => {
   });
 
   describe('Resource Registration Compliance', () => {
-    it('should register resources with proper templates', async () => {
+    it('should register IAM resources with proper templates', async () => {
       const { registerIamResources } = await import('../../src/services/iam/resources.js');
       
       registerIamResources(mockMcpServer as any);
@@ -100,10 +123,31 @@ describe('MCP Protocol Compliance', () => {
         expect(typeof handler).toBe('function');
       });
     });
+
+    it('should register billing resources with proper templates', async () => {
+      vi.clearAllMocks();
+      const { registerBillingResources } = await import('../../src/services/billing/resources.js');
+      
+      registerBillingResources(mockMcpServer as any);
+      
+      // Verify billing resources are registered with MCP compliant structure
+      expect(mockMcpServer.resource).toHaveBeenCalled();
+      
+      const resourceCalls = mockMcpServer.resource.mock.calls;
+      
+      resourceCalls.forEach(call => {
+        const [name, template, handler] = call;
+        
+        expect(typeof name).toBe('string');
+        expect(name).toMatch(/^gcp-billing-/);
+        expect(template).toBeDefined();
+        expect(typeof handler).toBe('function');
+      });
+    });
   });
 
   describe('Response Format Compliance', () => {
-    it('should return MCP-compliant tool responses', async () => {
+    it('should return MCP-compliant IAM tool responses', async () => {
       const { registerIamTools } = await import('../../src/services/iam/tools.js');
       
       registerIamTools(mockMcpServer as any);
@@ -114,6 +158,34 @@ describe('MCP Protocol Compliance', () => {
       
       const toolHandler = toolCall[2];
       const result = await toolHandler({ permissions: ['test.permission'] });
+      
+      // Verify MCP response structure
+      expect(result).toHaveProperty('content');
+      expect(Array.isArray(result.content)).toBe(true);
+      expect(result.content[0]).toHaveProperty('type');
+      expect(result.content[0]).toHaveProperty('text');
+    });
+
+    it('should return MCP-compliant billing tool responses', async () => {
+      vi.clearAllMocks();
+      
+      // Import and set up billing client mock
+      const { mockBillingClient } = await import('../mocks/google-cloud-mocks.js');
+      const { createMockBillingAccount } = await import('../utils/test-helpers.js');
+      
+      // Reset billing client mock for this test
+      mockBillingClient.listBillingAccounts.mockResolvedValue([[createMockBillingAccount()], null]);
+      
+      const { registerBillingTools } = await import('../../src/services/billing/tools.js');
+      
+      registerBillingTools(mockMcpServer as any);
+      
+      const toolCall = mockMcpServer.registerTool.mock.calls.find(
+        call => call[0] === 'gcp-billing-list-accounts'
+      );
+      
+      const toolHandler = toolCall[2];
+      const result = await toolHandler({ pageSize: 10 });
       
       // Verify MCP response structure
       expect(result).toHaveProperty('content');
