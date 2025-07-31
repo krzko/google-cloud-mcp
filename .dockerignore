@@ -1,0 +1,85 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+test/
+coverage/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Build artifacts (handled by multi-stage build)
+dist/
+
+# Development files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation (not needed in container)
+README.md
+CLAUDE.md
+*.md
+
+# CI/CD files
+.github/
+.dockerignore
+Dockerfile*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.log
+
+# Docker compose files (not needed in container)
+docker-compose*.yml
+docker-compose*.yaml
+
+# Package manager files
+.pnpm-store/
+.yarn/
+.npm/
+package-lock.json
+yarn.lock
+
+# ESLint and Prettier
+.eslintrc*
+.prettierrc*
+eslint.config.js
+
+# TypeScript config is needed for build stage
+# tsconfig.json
+
+# Vitest config
+vitest.config.ts
+
+# Smithery config (handled separately)
+smithery.yaml
