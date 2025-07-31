@@ -10,77 +10,118 @@ A Model Context Protocol server that connects to Google Cloud services to provid
 
 Supported Google Cloud services:
 
+- [x] [Billing](https://cloud.google.com/billing)
 - [x] [Error Reporting](https://cloud.google.com/error-reporting)
 - [x] [Identity and Access Management (IAM)](https://cloud.google.com/iam)
 - [x] [Logging](https://cloud.google.com/logging)
 - [x] [Monitoring](https://cloud.google.com/monitoring)
 - [x] [Profiler](https://cloud.google.com/profiler)
 - [x] [Spanner](https://cloud.google.com/spanner)
+- [x] [Trace](https://cloud.google.com/trace)
+
+### Billing
+
+Manage and analyse Google Cloud billing with cost optimisation insights:
+
+**Tools:** `gcp-billing-list-accounts`, `gcp-billing-get-account-details`, `gcp-billing-list-projects`, `gcp-billing-get-project-info`, `gcp-billing-list-services`, `gcp-billing-list-skus`, `gcp-billing-analyse-costs`, `gcp-billing-detect-anomalies`, `gcp-billing-cost-recommendations`, `gcp-billing-service-breakdown`
+
+*Example prompts:*
+- "Show me all my billing accounts"
+- "Analyse costs for project my-app-prod-123 for the last 30 days"
+- "Generate cost recommendations for billing account billingAccounts/123456-789ABC-DEF012"
+- "Check for billing anomalies in project my-ecommerce-456"
 
 ### Error Reporting
 
 Monitor and analyse application errors with automated investigation and remediation suggestions:
 
-- List and analyse error groups with customisable time ranges (default 1h)
-- Get detailed error group information with recent events and stack traces
-- Analyse error trends over time to identify patterns and spikes
-- Generate comprehensive remediation suggestions based on error patterns
-- Investigate errors by service, time range, or severity
+**Tools:** `gcp-error-reporting-list-groups`, `gcp-error-reporting-get-group-details`, `gcp-error-reporting-analyse-trends`
+
+*Example prompts:*
+- "Show me error groups from project my-webapp-prod-789 for the last hour"
+- "Get details for error group projects/my-app-123/groups/xyz789"
+- "Analyse error trends for service my-api in project analytics-prod-456"
 
 ### IAM
 
 Query and analyse IAM policies and permissions:
 
-- Retrieve project-level IAM policies with detailed summaries
-- Test IAM permissions on projects and specific resources
-- Validate deployment permissions for common GCP services (Cloud Run, GKE, Compute Engine, etc.)
-- Analyse permission gaps for specific operations
-- Generate IAM policy analysis with security insights
+**Tools:** `gcp-iam-get-project-policy`, `gcp-iam-test-project-permissions`, `gcp-iam-test-resource-permissions`, `gcp-iam-validate-deployment-permissions`, `gcp-iam-list-deployment-services`, `gcp-iam-analyse-permission-gaps`
+
+*Example prompts:*
+- "Get IAM policy for project my-webapp-prod-123"
+- "Test if I have storage.buckets.create permission on project data-lake-456"
+- "Check deployment permissions for Cloud Run in project microservices-789"
+- "Analyse permission gaps for deploying to GKE cluster in project k8s-prod-321"
 
 ### Logging
 
 Query and filter log entries from Google Cloud Logging:
 
-- Query logs with custom filters
-- Search logs within specific time ranges
-- Format and display log entries in a readable format
+**Tools:** `gcp-logging-query-logs`, `gcp-logging-query-time-range`, `gcp-logging-search-comprehensive`
+
+*Example prompts:*
+- "Show me logs from project my-app-prod-123 from the last hour with severity ERROR"
+- "Search for logs containing 'timeout' from service my-api in project backend-456"
+- "Query logs for resource type gce_instance in project compute-prod-789"
 
 ### Spanner
 
 Interact with Google Cloud Spanner databases:
 
-- Execute SQL queries against Spanner databases
-- List available databases and tables
-- Explore database schema
+**Tools:** `gcp-spanner-execute-query`, `gcp-spanner-list-tables`, `gcp-spanner-list-instances`, `gcp-spanner-list-databases`, `gcp-spanner-query-natural-language`, `gcp-spanner-query-count`
+
+*Example prompts:*
+- "List all databases in Spanner instance my-instance in project ecommerce-prod-123"
+- "Execute SQL: SELECT COUNT(*) FROM users in database user-db in project my-app-456"
+- "Show me table structure for orders in database inventory-db in project retail-789"
 
 ### Monitoring
 
 Retrieve and analyse metrics from Google Cloud Monitoring:
 
-- Query metrics with custom filters
-- Visualise metric data over time
-- List available metric types
+**Tools:** `gcp-monitoring-query-metrics`, `gcp-monitoring-list-metric-types`, `gcp-monitoring-query-natural-language`
+
+*Example prompts:*
+- "Show me CPU utilisation metrics for project web-app-prod-123 for the last 6 hours"
+- "List available metric types for Compute Engine in project infrastructure-456"
+- "Query memory usage for instances in project backend-services-789"
 
 ### Profiler
 
 Analyse application performance with Google Cloud Profiler:
 
-- List and analyse profiles with filtering by type (CPU, Heap, Wall, etc.)
-- Perform detailed performance analysis with bottleneck identification
-- Compare profile trends over time to track performance changes
-- Generate actionable recommendations for optimisation
-- Support for multiple programming languages (Go, Java, Node.js, Python)
-- Analyse CPU hotspots, memory allocation patterns, and execution timing
+**Tools:** `gcp-profiler-list-profiles`, `gcp-profiler-analyse-performance`, `gcp-profiler-compare-trends`
+
+*Example prompts:*
+- "List CPU profiles from project my-java-app-123 for the last 24 hours"
+- "Analyse performance bottlenecks in service my-api in project backend-prod-456"
+- "Compare heap profiles for deployment v1.2 vs v1.3 in project performance-test-789"
 
 ### Trace
 
 Analyse distributed traces from Google Cloud Trace:
 
-- Retrieve traces by ID
-- List recent traces with filtering options
-- Find traces associated with logs
-- Identify failed traces
-- Use natural language to query traces (e.g., "Show me failed traces from the last hour")
+**Tools:** `gcp-trace-get-trace`, `gcp-trace-list-traces`, `gcp-trace-find-from-logs`, `gcp-trace-query-natural-language`
+
+*Example prompts:*
+- "Get trace details for ID abc123def456 in project distributed-app-789"
+- "Show me failed traces from project microservices-prod-123 from the last hour"
+- "Find logs related to trace xyz789 in project web-backend-456"
+- "Query traces for service checkout-api in project ecommerce-prod-321"
+
+## Quick Start
+
+Once configured, you can interact with Google Cloud services using natural language:
+
+```
+"What are my current billing costs for project my-webapp-prod-123?"
+"Show me errors from project ecommerce-api-456 in the last hour"
+"Check if I have permission to deploy to Cloud Run in project microservices-789"
+"Find logs containing 'database timeout' from project backend-prod-321 yesterday"
+"List Spanner databases in instance prod-db for project data-store-654"
+"What's the CPU usage of Compute Engine instances in project infrastructure-987?"
+```
 
 ## Authentication
 
@@ -151,12 +192,6 @@ pnpm build
 # Start the server and inspector
 npx -y @modelcontextprotocol/inspector node dist/index.js
 ```
-
-### Using with Smithery (soon)
-
-This server can be deployed and used with Smithery. The server implements lazy loading of authentication, which means it will start immediately and defer authentication until it's actually needed. Authentication is still required for operation, but this approach prevents timeouts during server initialization.
-
-NOTE: Smithery local server support is currently in development and may not yet available.
 
 ## Troubleshooting
 
