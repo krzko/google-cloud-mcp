@@ -43,7 +43,7 @@
     "@google-cloud/spanner": "^8.1.0",
     "@google-cloud/trace-agent": "^8.0.0",
     "@modelcontextprotocol/sdk": "^1.17.0",
-    "dotenv": "^16.4.7",
+    "dotenv": "^17.2.1",
     "google-auth-library": "^10.2.0",
     "googleapis": "^154.1.0",
     "winston": "^3.17.0",
