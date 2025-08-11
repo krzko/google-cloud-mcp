@@ -47,7 +47,7 @@
     "google-auth-library": "^10.2.0",
     "googleapis": "^154.1.0",
     "winston": "^3.17.0",
-    "zod": "^3.23.8"
+    "zod": "^4.0.17"
   },
   "devDependencies": {
     "@types/node": "^22.13.9",
